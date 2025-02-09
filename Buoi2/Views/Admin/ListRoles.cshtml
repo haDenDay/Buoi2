@@ -1,0 +1,97 @@
+﻿@* @using Microsoft.AspNetCore.Identity
+@model IEnumerable<IdentityRole>
+
+@{
+    ViewBag.Title = "All Roles";
+}
+
+<h1>All Roles</h1>
+
+@if (Model.Any())
+{
+    <a class="btn btn-primary mb-3" asp-controller="Admin" asp-action="CreateRole" style="width:auto;">Add New Role</a>
+
+    <div class="row">
+        @foreach (var role in Model)
+        {
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <strong>Role ID:</strong> @role.Id
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">@role.Name</h5>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between">
+                        <a asp-controller="Administration" asp-action="EditRole" asp-route-id="@role.Id" class="btn btn-primary">Edit</a>
+                        <a asp-controller="Administration" asp-action="DeleteRole" asp-route-id="@role.Id" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="card">
+        <div class="card-header">
+            No roles created yet
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Use the button below to create a role</h5>
+            <a class="btn btn-primary" asp-controller="Administration" asp-action="CreateRole" style="width:auto;">Create Role</a>
+        </div>
+    </div>
+}
+ *@
+ @using Microsoft.AspNetCore.Identity
+@model IEnumerable<IdentityRole>
+
+@{
+    ViewBag.Title = "All Roles";
+}
+
+<h1 class="text-center">All Roles</h1>
+
+@if (Model.Any())
+{
+    <!-- Button to Create a New Role -->
+    <div class="text-center mb-3">
+        <a class="btn btn-primary" asp-controller="Admin" asp-action="CreateRole">Add New Role</a>
+    </div>
+
+    <!-- List of Roles -->
+    <div class="row">
+        @foreach (var role in Model)
+        {
+            <div class="col-md-4">
+                <div class="card mb-3 shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <strong>Role ID:</strong> @role.Id
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title text-center">@role.Name</h5>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between">
+                        <!-- Edit Button -->
+                        <a asp-controller="Admin" asp-action="EditRole" asp-route-roleId="@role.Id" class="btn btn-warning btn-sm">Edit</a>
+
+                        <!-- Delete Button -->
+                        <form asp-controller="Admin" asp-action="DeleteRole" asp-route-roleId="@role.Id" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <!-- No Roles Found -->
+    <div class="alert alert-warning text-center">
+        <strong>No roles created yet!</strong>
+        <br />
+        <a class="btn btn-primary mt-2" asp-controller="Admin" asp-action="CreateRole">Create Role</a>
+    </div>
+}
